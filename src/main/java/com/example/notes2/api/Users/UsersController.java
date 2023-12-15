@@ -4,6 +4,7 @@ import com.example.notes2.api.Users.requests.CreateUserRequest;
 import com.example.notes2.api.Users.responses.UserResponse;
 import com.example.notes2.api.Users.responses.UsersResponse;
 import com.example.notes2.service.usersSrevice.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
     private UsersService usersService;
 
-//    @Autowired
-//    public UsersController(UsersService usersService) {
-//        this.usersService = usersService;
-//    }
+    @Autowired
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
+    }
 
     @GetMapping
     public UsersResponse getUsers() {

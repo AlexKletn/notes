@@ -6,6 +6,7 @@ import com.example.notes2.api.Notes.responses.NoteResponse;
 import com.example.notes2.api.Notes.responses.NotesResponse;
 import com.example.notes2.service.notesService.NotesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class NotesController {
     private NotesService notesService;
 
-//    @Autowired
-//    public NotesController(NotesService notesService) {
-//        this.notesService = notesService;
-//    }
+    @Autowired
+    public NotesController(NotesService notesService) {
+        this.notesService = notesService;
+    }
 
     @GetMapping
     public NotesResponse getNotes() {

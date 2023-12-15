@@ -1,4 +1,4 @@
-package com.example.notes2.service.usersSrevice.impl;
+package com.example.notes2.service.usersSrevice;
 
 import com.example.notes2.api.Users.requests.CreateUserRequest;
 import com.example.notes2.api.Users.requests.UpdateUserRequest;
@@ -6,7 +6,6 @@ import com.example.notes2.api.Users.responses.UserResponse;
 import com.example.notes2.api.Users.responses.UsersResponse;
 import com.example.notes2.domain.User;
 import com.example.notes2.repository.usersRepository.UsersRepository;
-import com.example.notes2.service.usersSrevice.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;

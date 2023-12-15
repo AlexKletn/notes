@@ -1,4 +1,4 @@
-package com.example.notes2.service.notesService.impl;
+package com.example.notes2.service.notesService;
 
 import com.example.notes2.api.Notes.requests.CreateNoteRequest;
 import com.example.notes2.api.Notes.requests.UpdateNoteRequest;
@@ -8,7 +8,6 @@ import com.example.notes2.domain.Note;
 import com.example.notes2.domain.User;
 import com.example.notes2.repository.notesRepository.NotesRepository;
 import com.example.notes2.repository.usersRepository.UsersRepository;
-import com.example.notes2.service.notesService.NotesService;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
