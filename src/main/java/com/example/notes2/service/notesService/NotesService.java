@@ -1,14 +1,17 @@
 package com.example.notes2.service.notesService;
 
-import com.example.notes2.domain.entity.Note;
-
-import java.util.List;
-import java.util.Map;
+import com.example.notes2.api.Notes.requests.CreateNoteRequest;
+import com.example.notes2.api.Notes.requests.UpdateNoteRequest;
+import com.example.notes2.api.Notes.responses.NoteResponse;
+import com.example.notes2.api.Notes.responses.NotesResponse;
 
 public interface NotesService {
-    List<Note> getNotes();
-    List<Note> getNotes(Map<String, String> filters);
-    Note getNote(Long id);
+    NotesResponse getNotes();
+    NoteResponse getNote(Integer id);
 
-    Long createNote(Note noteData);
+    void createNote(CreateNoteRequest noteData);
+
+    void updateNote(Integer id, UpdateNoteRequest noteData);
+
+    void deleteNote(Integer id);
 }
