@@ -1,4 +1,4 @@
-package com.example.notes2.notes;
+package com.example.notes2.notes.api;
 
 import com.example.notes2.common.itemsList.ItemsList;
 import com.example.notes2.common.itemsList.ItemsListRequest;
@@ -18,7 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/notes")
+@RequestMapping("/api/v1/notes")
 public class NotesController {
     private final NotesService notesService;
     private final NoteResponseMapper noteResponseMapper;
