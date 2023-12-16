@@ -1,13 +1,13 @@
 package com.example.notes2.api.Exeptions;
 
 import com.example.notes2.api.Exeptions.responses.ExceptionResponse;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.persistence.EntityNotFoundException;
-
-//@RestControllerAdvice
+@RestControllerAdvice
 public class ExceptionController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

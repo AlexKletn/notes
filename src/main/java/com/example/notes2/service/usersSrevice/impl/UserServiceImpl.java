@@ -1,24 +1,25 @@
-package com.example.notes2.service.usersSrevice;
+package com.example.notes2.service.usersSrevice.impl;
 
 import com.example.notes2.api.Users.requests.CreateUserRequest;
 import com.example.notes2.api.Users.requests.UpdateUserRequest;
 import com.example.notes2.api.Users.responses.UserResponse;
 import com.example.notes2.api.Users.responses.UsersResponse;
 import com.example.notes2.domain.User;
-import com.example.notes2.repository.usersRepository.UsersRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.notes2.repository.UsersRepository;
+import com.example.notes2.service.usersSrevice.UsersService;
+import jakarta.persistence.EntityNotFoundException;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UsersService {
+    @Autowired
     private UsersRepository usersRepository;
 
     @Override
@@ -40,19 +41,20 @@ public class UserServiceImpl implements UsersService {
 
     @Override
     @Transactional
-    public UserResponse createUser(CreateUserRequest request) {
-        return buildUserResponse(buildUser(request));
+    public void createUser(CreateUserRequest request) {
+        User user = new User()
+                .setName(request.getName());
+
+        usersRepository.save(user);
     }
 
     @Override
     @Transactional
-    public UserResponse updateUser(Integer id, UpdateUserRequest request) {
+    public void updateUser(Integer id, UpdateUserRequest request) {
         User user = usersRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " is not found"));
 
         ofNullable(request.getName()).map(user::setName);
-
-        return buildUserResponse(user);
     }
 
     private UserResponse buildUserResponse(@NotNull User user) {
@@ -67,10 +69,5 @@ public class UserServiceImpl implements UsersService {
         return (UsersResponse) new UsersResponse()
                 .setCount(notesResponseItems.size())
                 .setItems(notesResponseItems);
-    }
-
-    private User buildUser(CreateUserRequest request) {
-        return new User()
-            .setName(request.getName());
     }
 }

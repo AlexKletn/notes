@@ -1,4 +1,4 @@
-package com.example.notes2.repository.usersRepository;
+package com.example.notes2.repository;
 
 import com.example.notes2.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

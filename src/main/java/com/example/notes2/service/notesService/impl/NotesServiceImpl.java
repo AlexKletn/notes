@@ -1,4 +1,4 @@
-package com.example.notes2.service.notesService;
+package com.example.notes2.service.notesService.impl;
 
 import com.example.notes2.api.Notes.requests.CreateNoteRequest;
 import com.example.notes2.api.Notes.requests.UpdateNoteRequest;
@@ -6,23 +6,25 @@ import com.example.notes2.api.Notes.responses.NoteResponse;
 import com.example.notes2.api.Notes.responses.NotesResponse;
 import com.example.notes2.domain.Note;
 import com.example.notes2.domain.User;
-import com.example.notes2.repository.notesRepository.NotesRepository;
-import com.example.notes2.repository.usersRepository.UsersRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.notes2.repository.NotesRepository;
+import com.example.notes2.repository.UsersRepository;
+import com.example.notes2.service.notesService.NotesService;
+import jakarta.persistence.EntityNotFoundException;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
 @Service
-@RequiredArgsConstructor
 public class NotesServiceImpl implements NotesService {
-    private static NotesRepository notesRepository;
-    private static UsersRepository usersRepository;
+    @Autowired
+    private NotesRepository notesRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -84,10 +86,12 @@ public class NotesServiceImpl implements NotesService {
                 .findById(note.getOwner_id())
                 .orElseThrow(() -> new EntityNotFoundException("Owner " + note.getOwner_id() + " is not found"));
 
-        new Note()
-            .setTitle(note.getTitle())
-            .setDescription(note.getDescription())
-            .setOwner(owner);
+        Note note1 = new Note()
+                .setTitle(note.getTitle())
+                .setDescription(note.getDescription())
+                .setOwner(owner);
+
+        notesRepository.save(note1);
     }
 
 }

@@ -4,15 +4,14 @@ import com.example.notes2.api.Users.requests.CreateUserRequest;
 import com.example.notes2.api.Users.responses.UserResponse;
 import com.example.notes2.api.Users.responses.UsersResponse;
 import com.example.notes2.service.usersSrevice.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
-    private UsersService usersService;
+    private final UsersService usersService;
 
-    @Autowired
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
@@ -28,8 +27,9 @@ public class UsersController {
     }
 
     @PostMapping
-    public UserResponse createUser(@RequestBody CreateUserRequest request) {
-        return usersService.createUser(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUser(@RequestBody CreateUserRequest request) {
+        usersService.createUser(request);
     }
 
     // TODO: update user using auth vars

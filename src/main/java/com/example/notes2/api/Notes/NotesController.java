@@ -5,17 +5,13 @@ import com.example.notes2.api.Notes.requests.UpdateNoteRequest;
 import com.example.notes2.api.Notes.responses.NoteResponse;
 import com.example.notes2.api.Notes.responses.NotesResponse;
 import com.example.notes2.service.notesService.NotesService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/notes")
-@RequiredArgsConstructor
 public class NotesController {
-    private NotesService notesService;
+    private final NotesService notesService;
 
-    @Autowired
     public NotesController(NotesService notesService) {
         this.notesService = notesService;
     }
