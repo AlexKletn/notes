@@ -1,5 +1,7 @@
 package com.example.notes2.notes.service.impl;
 
+import com.example.notes2.common.itemsList.ItemsList;
+import com.example.notes2.common.itemsList.ItemsListRequest;
 import com.example.notes2.notes.api.requests.CreateNoteRequest;
 import com.example.notes2.notes.api.requests.UpdateNoteRequest;
 import com.example.notes2.notes.domain.entity.Note;
@@ -9,6 +11,10 @@ import com.example.notes2.users.domain.entity.User;
 import com.example.notes2.users.repository.UsersRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +31,20 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Note> getNotes() {
-        return notesRepository.findAll();
+    public ItemsList<Note> getNotes(ItemsListRequest request) {
+        Sort sort = Sort.by(request.getSortDirection(), request.getSortField());
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getCount(), sort);
+
+        Integer total = (int) notesRepository.count();
+        Page<Note> notesPage = notesRepository.findAll(pageable);
+        List<Note> notes = notesPage.stream().toList();
+
+        ItemsList<Note> itemsList = new ItemsList<Note>();
+
+        itemsList.setItems(notes);
+        itemsList.setTotal(total);
+
+        return itemsList;
     }
 
     @Override

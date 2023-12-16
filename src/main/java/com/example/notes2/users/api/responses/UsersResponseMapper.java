@@ -1,11 +1,10 @@
 package com.example.notes2.users.api.responses;
 
-import com.example.notes2.common.list.ListResponse;
+import com.example.notes2.common.itemsList.ItemsList;
+import com.example.notes2.common.itemsList.ItemsListResponse;
 import com.example.notes2.users.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class UsersResponseMapper {
@@ -16,9 +15,12 @@ public class UsersResponseMapper {
         this.userResponseMapper = userResponseMapper;
     }
 
-    public ListResponse<UserResponse> toResponse(List<User> noteList) {
-        List<UserResponse> noteResponseList = noteList.stream().map(userResponseMapper::toResponse).toList();
+    public ItemsListResponse<UserResponse> toResponse(ItemsList<User> usersList) {
+        ItemsList<UserResponse> usersResponseList = new ItemsList<UserResponse>();
 
-        return ListResponse.create(noteResponseList);
+        usersResponseList.setItems(usersList.getItems().stream().map(userResponseMapper::toResponse).toList());
+        usersResponseList.setTotal(usersList.getTotal());
+
+        return ItemsListResponse.create(usersResponseList);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.notes2.notes;
 
-import com.example.notes2.common.list.ListResponse;
+import com.example.notes2.common.itemsList.ItemsList;
+import com.example.notes2.common.itemsList.ItemsListRequest;
+import com.example.notes2.common.itemsList.ItemsListResponse;
 import com.example.notes2.notes.api.requests.CreateNoteRequest;
 import com.example.notes2.notes.api.requests.UpdateNoteRequest;
 import com.example.notes2.notes.api.responses.NoteResponse;
@@ -10,11 +12,10 @@ import com.example.notes2.notes.domain.entity.Note;
 import com.example.notes2.notes.service.NotesService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/notes")
@@ -35,8 +36,8 @@ public class NotesController {
     }
 
     @GetMapping
-    public ListResponse<NoteResponse> getNotes() {
-        List<Note> notes =  notesService.getNotes();
+    public ItemsListResponse<NoteResponse> getNotes(@ParameterObject ItemsListRequest request) {
+        ItemsList<Note> notes = notesService.getNotes(request);
 
         return notesResponseMapper.toResponse(notes);
     }

@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface NoteResponseMapper {
     NoteResponseMapper MAPPER = Mappers.getMapper( NoteResponseMapper.class );
+
     @Mapping(target = "owner_id", expression = "java(note.getOwner().getId())")
     NoteResponse toResponse(Note note);
     Note toEntity(NoteResponse note);
