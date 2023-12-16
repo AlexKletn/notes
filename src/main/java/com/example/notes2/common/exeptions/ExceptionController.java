@@ -19,7 +19,7 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     private ExceptionResponse notFound(EntityNotFoundException ex) {
-        return new ExceptionResponse(ex.getMessage());
+        return new ExceptionResponse(ex.getMessage(), ex.getClass().getName());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -43,7 +43,7 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
     private ExceptionResponse error(RuntimeException ex) {
-        return new ExceptionResponse(ex.getMessage());
+        return new ExceptionResponse(ex.getMessage(), ex.getClass().getName());
     }
 
 }

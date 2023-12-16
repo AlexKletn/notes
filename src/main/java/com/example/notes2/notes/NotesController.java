@@ -56,7 +56,7 @@ public class NotesController {
     }
 
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateNote(@NotNull @PathVariable Integer id, @Valid @RequestBody UpdateNoteRequest request) {
         notesService.updateNote(id, request);
     }

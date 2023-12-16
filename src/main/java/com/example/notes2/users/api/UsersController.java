@@ -49,7 +49,6 @@ public class UsersController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(
             @Valid
-//            @io.swagger.v3.oas.annotations.parameters.RequestBody
             @RequestBody CreateUserRequest request
     ) {
         usersService.createUser(request);
